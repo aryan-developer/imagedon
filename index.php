@@ -1,5 +1,4 @@
 <?php
-
 use danog\MadelineProto\APIWrapper;
 use danog\MadelineProto\EventHandler;
 

@@ -25,7 +25,17 @@ class MyEventHandler extends EventHandler
     {
         $this->onUpdateNewMessage($update);
     }
-
+    public function onStart()
+    {
+        yield $this->phoneLogin(yield $this->readline('Enter your phone number: '));
+        $authorization = yield $this->completePhoneLogin(yield $this->readline('Enter the phone code: '));
+        if ($authorization['_'] === 'account.password') {
+            $authorization = yield $this->complete2falogin(yield $this->readline('Please enter your password (hint '.$authorization['hint'].'): '));
+        }
+        if ($authorization['_'] === 'account.needSignup') {
+            $authorization = yield $this->completeSignup(yield $this->readline('Please enter your first name: '), readline('Please enter your last name (can be empty): '));
+        }
+    }
     public function onUpdateNewMessage(array $update): \Generator
     {
         try {
@@ -86,12 +96,4 @@ $settings = [
     ]
 ];
 $MadelineProto = new \danog\MadelineProto\API('imagedon.madeline', $settings);
-$MadelineProto->phoneLogin($MadelineProto->readline('Enter your phone number: '));
-$authorization = $MadelineProto->completePhoneLogin($MadelineProto->readline('Enter the phone code: '));
-if ($authorization['_'] === 'account.password') {
-    $authorization = $MadelineProto->complete2falogin($MadelineProto->readline('Please enter your password (hint '.$authorization['hint'].'): '));
-}
-if ($authorization['_'] === 'account.needSignup') {
-    $authorization = $MadelineProto->completeSignup($MadelineProto->readline('Please enter your first name: '), readline('Please enter your last name (can be empty): '));
-}
 $MadelineProto->startAndLoop(MyEventHandler::class);

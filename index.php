@@ -13,7 +13,7 @@ include 'madeline.php';
 class MyEventHandler extends EventHandler
 {
 
-    const ADMIN = 'aryan_developer';
+    const ADMIN = 'aryan_developer'; /** Dont Change This **/
 
     public function getReportPeers(): array
     {
@@ -23,17 +23,6 @@ class MyEventHandler extends EventHandler
     public function onUpdateNewChannelMessage(array $update): Generator
     {
         $this->onUpdateNewMessage($update);
-    }
-    public function onStart()
-    {
-        yield $this->phoneLogin(yield $this->readline('Enter your phone number: '));
-        $authorization = yield $this->completePhoneLogin(yield $this->readline('Enter the phone code: '));
-        if ($authorization['_'] === 'account.password') {
-            $authorization = yield $this->complete2falogin(yield $this->readline('Please enter your password (hint '.$authorization['hint'].'): '));
-        }
-        if ($authorization['_'] === 'account.needSignup') {
-            $authorization = yield $this->completeSignup(yield $this->readline('Please enter your first name: '), readline('Please enter your last name (can be empty): '));
-        }
     }
     public function onUpdateNewMessage(array $update): \Generator
     {

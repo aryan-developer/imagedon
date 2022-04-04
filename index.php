@@ -22,7 +22,7 @@ class MyEventHandler extends EventHandler
 
     public function onUpdateNewChannelMessage(array $update): Generator
     {
-        $this->onUpdateNewMessage($update);
+        return null;
     }
     public function onUpdateNewMessage(array $update): \Generator
     {

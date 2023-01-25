@@ -1,14 +1,5 @@
-<?php declare(strict_types=1);
-
-/**
- * Basic MadelineProto-v7 robot example.
- * Requires php-7.4 and above.
- * Date: 2022/08/08
- *
- * @author Piagrammist <https://github.com/Piagrammist>
- * @see    https://github.com/danog/MadelineProto/blob/stable/examples/bot.php
- */
-
+<?php
+declare(strict_types=1);
 
 use Amp\Promise;
 use danog\MadelineProto\Logger;

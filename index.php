@@ -92,7 +92,7 @@ class EventHandler extends BaseEventHandler
                     yield $this->sleep(2);
                     yield $respond("`پینگ ربات: $ping ms`");
                 } elseif ($text === '/restart') {
-                    yield $this->editMsg($chatId, $msgId, "ربات ریستارت شد");
+                    yield $respond("ربات ریستارت شد");
                     yield $this->restart();
                 }
             } else {
